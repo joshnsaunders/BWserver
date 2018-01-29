@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const keys = require('./config/keys');
 require('./models/User');
 require('./models/Survey');
+require('./models/Search')
 require('./services/passport');
 
 mongoose.Promise = global.Promise;
@@ -24,7 +25,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 require('./routes/authRoutes')(app);
-require('./routes/billingRoutes')(app);
+require('./routes/searchRoutes')(app);
+// require('./routes/billingRoutes')(app);
 require('./routes/surveyRoutes')(app);
 
 if (process.env.NODE_ENV === 'production') {
@@ -40,5 +42,5 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT);
+const PORT = process.env.PORT || 3005;
+app.listen(PORT, () => console.log(`listening on disaster PORT ${PORT}`))
