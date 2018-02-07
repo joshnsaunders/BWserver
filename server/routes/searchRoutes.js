@@ -9,20 +9,21 @@ module.exports = app => {
   app.get('/api/search', async (req, res) => {
     console.log('get search')
     const search = await Search.find({_user:req.user.id});
+    console.log(search);
     res.send(search)
   })
 
   app.post('/api/search', async (req, res) => {
     console.log('post search');
-    const { body } = req.body;
+    console.log(req.body);
     const search = new Search ({
-      body,
+      body:req.body.searchBody,
       _user:req.user.id
     })
 
     try {
       await search.save()
-      res.send(user)
+      res.send(search)
     } catch(err){
       res.status(422).send(err)
     }
